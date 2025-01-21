@@ -1,0 +1,16 @@
+{
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3.12",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "streetsidesoftware.code-spell-checker",
+            "ms-python.python",
+            "ms-python.vscode-pylance",
+            "eamodio.gitlens",
+            "njpwerner.autodocstring",
+            "ms-vscode.live-server"
+        ]
+      }
+    },
+    "forwardPorts": [3000]
+  }
