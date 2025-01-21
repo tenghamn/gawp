@@ -2,7 +2,7 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
-name = "glance"
+name = "gawp"
 version = "2025.01.21.1"
 authors = [
   { name="Johan Tenghamn", email="johan.tenghamn@gmail.com" },
@@ -25,8 +25,8 @@ dependencies = [
 license = "MIT"
 license-files = ["LICENSE"]
 [project.urls]
-"Homepage" = "https://https://github.com/tenghamn/glance"
-"Bug Tracker" = "https://https://github.com/tenghamn/glance/issues"
+"Homepage" = "https://https://github.com/tenghamn/gawp"
+"Bug Tracker" = "https://https://github.com/tenghamn/gawp/issues"
 
 [tool.ruff]
 exclude = [

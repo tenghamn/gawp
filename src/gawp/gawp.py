@@ -1,6 +1,6 @@
-from glance.server import show_html_in_browser
-from glance.html import create_html_with_image
-from glance.types_and_default_values import ImageTypes, DEFAULT_CMAP
+from gawp.server import show_html_in_browser
+from gawp.html import create_html_with_image
+from gawp.types_and_default_values import ImageTypes, DEFAULT_CMAP
 from IPython.display import display, HTML
 
 html = """

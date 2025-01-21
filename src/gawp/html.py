@@ -1,5 +1,5 @@
-from glance.types_and_default_values import ImageTypes, DEFAULT_CMAP
-from glance.html_template import HTML_TEMPLATE
+from gawp.types_and_default_values import ImageTypes, DEFAULT_CMAP
+from gawp.html_template import HTML_TEMPLATE
 import numpy as np
 from functools import singledispatch
 import matplotlib.cm as cm

@@ -3,7 +3,6 @@
     "customizations": {
       "vscode": {
         "extensions": [
-            "streetsidesoftware.code-spell-checker",
             "ms-python.python",
             "ms-python.vscode-pylance",
             "eamodio.gitlens",
@@ -12,5 +11,6 @@
         ]
       }
     },
+    "postAttachCommand": "pip install -e /workspaces/gawp",
     "forwardPorts": [3000]
   }

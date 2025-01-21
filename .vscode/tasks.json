@@ -6,7 +6,7 @@
         {
             "label": "Create html template",
             "type": "shell",
-            "command": "printf \"HTML_TEMPLATE = '''%s'''\n\" \"$(cat /workspaces/glance/src/glance/template.html)\" > /workspaces/glance/src/glance/html_template.py"
+            "command": "printf \"HTML_TEMPLATE = '''%s'''\n\" \"$(cat /workspaces/gawp/src/gawp/template.html)\" > /workspaces/gawp/src/gawp/html_template.py"
         }
     ]
 }

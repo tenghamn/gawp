@@ -1,4 +1,4 @@
-# glance
+# gawp
 
 A lightweight Python package that enables interactive, zoomable image viewing directly from Jupyter notebooks using a web-based interface.
 
@@ -13,7 +13,7 @@ A lightweight Python package that enables interactive, zoomable image viewing di
 Install using pip:
 
 ```bash
-pip install glance
+pip install gawp
 ```
 
 ## Usage
@@ -21,16 +21,16 @@ pip install glance
 Basic usage in a Jupyter notebook:
 
 ```python
-import glance
+import gawp
 
 # Create an image of numpy type (also works wit PIL images)
 image = ski.data.coins()
 
-glance.in_web(image)
+gawp.in_web(image)
 ```
 or use a matplotlib figure:
 ```python
-import glance
+import gawp
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -42,7 +42,7 @@ ax = plt.axes()
 
 ax.scatter(x,y)
 
-glance.in_web(fig)
+gawp.in_web(fig)
 ```
 
 ## Development
@@ -71,4 +71,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 For issues, feature requests, or questions:
-1. Check the [GitHub Issues](https://github.com/tenghamn/glance/issues)
+1. Check the [GitHub Issues](https://github.com/tenghamn/gawp/issues)
