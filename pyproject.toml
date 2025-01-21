@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "glance"
-version = "2025.01.20"
+version = "2025.01.21"
 authors = [
   { name="Johan Tenghamn", email="johan.tenghamn@gmail.com" },
 ]
@@ -22,9 +22,11 @@ dependencies = [
     "pillow",
     "ipython"
 ]
+license = "MIT"
+license-files = ["LICENSE"]
 [project.urls]
-"Homepage" = "https://github.com/username/your-package-name"
-"Bug Tracker" = "https://github.com/username/your-package-name/issues"
+"Homepage" = "https://https://github.com/tenghamn/glance"
+"Bug Tracker" = "https://https://github.com/tenghamn/glance/issues"
 
 [tool.ruff]
 exclude = [
