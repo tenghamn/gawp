@@ -1,125 +1,177 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Glance</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Gawp</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: #292929;
-            overflow: hidden;
+            overflow: auto;
         }
-        .zoom-container {
-            height: zooom_container_height;
-            width: 100vw;
-            position: relative;
-            overflow: hidden;
-            background: #000000;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            cursor: grab;
-        }
-        .zoom-container:active {
-            cursor: grabbing;
-        }
-        #zoomable-image {
-            display: block;
-            max-width: 100vw;
-            max-height: 100vh;
+        img {
+            position: absolute;
             width: auto;
             height: auto;
             object-fit: contain;
-            transform-origin: 0 0;
         }
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-radius: 20px;
+        .button-container {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
+            flex-direction: column;
             gap: 10px;
+            z-index: 1;
         }
         button {
-            background: white;
+            padding: 10px;
             border: none;
-            padding: 8px 15px;
-            border-radius: 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
-            font-weight: bold;
+            transition: background-color 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         button:hover {
             background: #eee;
         }
+        .lucide {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        /* Icon styling */
+        svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
     </style>
 </head>
 <body id="zoom-body">
-    <div class="zoom-container" id="zoom-container">
-        <img id="zoomable-image" src="/api/placeholder/800/600" alt="Zoomable Image">
-    </div>
-    <div id="zoom-controls" class="controls">
-        <button onclick="zoomIn()">Zoom In (+)</button>
-        <button onclick="zoomOut()">Zoom Out (-)</button>
-        <button onclick="resetZoom()">Reset</button>
+    <img id="image" src="/api/placeholder/800/600" alt="Zoomable Image">
+    <div class="button-container">
+        <button id="home-button" onclick="resetZoom()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+        </button>
+        <button id="plus-button" onclick="zoomIn()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+        </button>
+        <button id="minus-button" onclick="zoomOut()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+        </button>
     </div>
 
     <script>
-        const container = document.querySelector('#zoom-container');
-        const img = document.querySelector('#zoomable-image');
+        // const container = document.querySelector('#image_container');
+        const img = document.querySelector('#image');
+        const imgOriginalPosition = {
+            x: img.getBoundingClientRect().x,
+            y: img.getBoundingClientRect().y
+        }
         let scale = 1;
-        const maxScale = 50;
         let isDragging = false;
         let startPos = { x: 0, y: 0 };
         let currentPos = { x: 0, y: 0 };
 
         // Zoom functions
         function zoomIn() {
-            scale = Math.min(scale * 1.2, maxScale);
-            updateTransform();
+            updateImage(1.2, img.getBoundingClientRect().x, img.getBoundingClientRect().y)
         }
 
         function zoomOut() {
-            scale = Math.max(scale / 1.2, 1);
-            if (scale == 1){
-                currentPos = { x: 0, y: 0 };
-            }
-            updateTransform();
+            updateImage(1/1.2, img.getBoundingClientRect().x, img.getBoundingClientRect().y)
         }
 
         function resetZoom() {
+            let currImgScale = img.getBoundingClientRect().width / img.naturalWidth;
             scale = 1;
             currentPos = { x: 0, y: 0 };
-            updateTransform();
+            updateImage(1/currImgScale, imgOriginalPosition.x, imgOriginalPosition.y)
         }
 
-        function updateTransform() {
-            img.style.transform = `translate(${currentPos.x}px, ${currentPos.y}px) scale(${scale})`;
+        function updateImage(scale, x, y) {
+            let w = img.getBoundingClientRect().width;
+            let h = img.getBoundingClientRect().height;
+            img.style.width = `${w * scale}px`;
+            img.style.height = `${h * scale}px`;
+            img.style.top = `${y}px`;
+            img.style.left = `${x}px`;
         }
 
         // Mouse wheel zoom
-        container.addEventListener('wheel', (e) => {
+        img.addEventListener('wheel', (e) => {
             e.preventDefault();
-
-            if (e.deltaY < 0) {
-                zoomIn();
-            } else {
-                zoomOut();
+            let scaling = e.deltaY < 0 ? 1.2 : 1 / 1.2;
+            let currImgScale = img.getBoundingClientRect().width / img.naturalWidth;
+            let nextImgScale = currImgScale * scaling;
+            let currImgPos = {
+                x: img.getBoundingClientRect().x,
+                y: img.getBoundingClientRect().y
+            };
+            let nextImgPos = {
+                x: currImgPos.x - img.width*(nextImgScale - currImgScale)/2,
+                y: currImgPos.y - img.height*(nextImgScale - currImgScale)/2
+            };
+            let currCursPos = {
+                x: e.clientX,
+                y: e.clientY
+            };
+            let m1 = {
+                    x: -currImgPos.x + currCursPos.x,
+                    y: -currImgPos.y + currCursPos.y
+                }
+            let m2 = {
+                x: m1.x*scaling,
+                y: m1.y*scaling
             }
+            updateImage(
+                    scaling,
+                    currImgPos.x + m1.x - m2.x,
+                    currImgPos.y + m1.y - m2.y
+                );
         });
 
         // Drag functionality
-        container.addEventListener('mousedown', (e) => {
+        img.addEventListener('mousedown', (e) => {
             e.preventDefault();
             isDragging = true;
-            startPos = {
-                x: e.clientX - currentPos.x,
-                y: e.clientY - currentPos.y
+            let currImgPos = {
+                x: img.getBoundingClientRect().x,
+                y: img.getBoundingClientRect().y
             };
-            container.style.cursor = 'grabbing';
+            startPos = {
+                x: e.clientX - currImgPos.x,
+                y: e.clientY - currImgPos.y
+            };
+            img.style.cursor = 'grabbing';
         });
 
         window.addEventListener('mousemove', (e) => {
@@ -130,12 +182,12 @@
                 x: e.clientX - startPos.x,
                 y: e.clientY - startPos.y
             };
-            updateTransform();
+            updateImage(1, currentPos.x, currentPos.y);
         });
 
         window.addEventListener('mouseup', () => {
             isDragging = false;
-            container.style.cursor = 'grab';
+            img.style.cursor = 'grab';
         });
 
         // Keyboard controls
@@ -152,16 +204,6 @@
                 case '0':
                     resetZoom();
                     break;
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var element = document.getElementById(uniqueId);
-            if (element) {  // Check if element exists
-                element.addEventListener('click', function() {
-                    this.style.color = 'red';
-                    this.innerHTML = 'Clicked!';
-                });
             }
         });
     </script>

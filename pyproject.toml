@@ -14,6 +14,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    'Topic :: Software Development',
+    'Topic :: Scientific/Engineering',
+    'Topic :: Image Analysis',
+    'Typing :: Typed',
 ]
 dependencies = [
     "numpy",

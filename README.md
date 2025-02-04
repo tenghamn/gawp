@@ -1,6 +1,6 @@
 # gawp
 
-A lightweight Python package that enables interactive, zoomable image viewing directly from Jupyter notebooks using a web-based interface.
+A lightweight Python package that enables zoomable image viewing directly from Jupyter notebooks using a web-based interface.
 
 ## Features
 
@@ -24,7 +24,7 @@ Basic usage in a Jupyter notebook:
 import gawp
 
 # Create an image of numpy type (also works wit PIL images)
-image = ski.data.coins()
+image = ski.data.coffee()
 
 gawp.in_web(image)
 ```
@@ -47,7 +47,7 @@ gawp.in_web(fig)
 
 ## Development
 
-Contributions are welcome! To contribute:
+Contributions to gawp are welcome! To contribute:
 
 1. Clone the repository
 2. Create a new branch for your feature

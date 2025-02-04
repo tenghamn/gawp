@@ -21,6 +21,10 @@ def create_html_with_image(image: ImageTypes, cmap: str = DEFAULT_CMAP, inline=F
     )
 
 
+def _convert_to_uint8(arr: np.ndarray):
+    return np.interp(arr, (arr.min(), arr.max()), (0, 255)).astype(np.uint8)
+
+
 @singledispatch
 def _convert_to_pil_image(image: ImageTypes, cmap: str = DEFAULT_CMAP):
     return f"Unknown type: {image}"
@@ -30,7 +34,7 @@ def _convert_to_pil_image(image: ImageTypes, cmap: str = DEFAULT_CMAP):
 def _(image: np.ndarray, cmap: str = DEFAULT_CMAP):
     if len(image.shape) == 2:
         image = cm.get_cmap(cmap)(Normalize()(image), bytes=True)
-    return Image.fromarray(image)
+    return Image.fromarray(_convert_to_uint8(image))
 
 
 @_convert_to_pil_image.register
