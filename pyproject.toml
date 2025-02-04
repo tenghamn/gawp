@@ -16,7 +16,7 @@ classifiers = [
     "Operating System :: OS Independent",
     'Topic :: Software Development',
     'Topic :: Scientific/Engineering',
-    'Topic :: Image Analysis',
+    'Topic :: Multimedia :: Graphics :: Viewers',
     'Typing :: Typed',
 ]
 dependencies = [
