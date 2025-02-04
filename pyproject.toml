@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "gawp"
-version = "2025.01.21.1"
+version = "2025.02.04"
 authors = [
   { name="Johan Tenghamn", email="johan.tenghamn@gmail.com" },
 ]
